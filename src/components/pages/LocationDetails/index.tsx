@@ -3,7 +3,7 @@ import { useQuery } from "@apollo/client";
 import { useParams } from "react-router";
 
 import { Character } from "../../../types";
-import CharacterCard from "../../blocks/CharacterCard";
+import ItemCard from "../../blocks/ItemCard";
 import { LOCATION } from "../../../graphql/queries/locations/getItem";
 import Loader from "../../blocks/Loader";
 import { Wrapper, CharacterCardsWrapper, ResidentsTitle } from "./style";
@@ -35,7 +35,7 @@ const LocationDetails = () => {
             <p>Residents of location</p>
             <CharacterCardsWrapper>
               {data.location.residents?.map((character: Character) => (
-                <CharacterCard key={character.id} character={character} />
+                <ItemCard key={character.id} item={character} />
               ))}
             </CharacterCardsWrapper>
           </ResidentsTitle>

@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useState } from "react";
 import { useQuery } from "@apollo/client";
 
-import CharacterCard from "../../blocks/CharacterCard";
+import ItemCard from "../../blocks/ItemCard";
 import { Character } from "../../../types";
 import Pagination from "../../blocks/Pagination";
 import { CHARACTERS } from "../../../graphql/queries/characters/getAll";
@@ -10,7 +10,8 @@ import {
   CharactersData,
   CharactersVars,
 } from "../../../graphql/queries/characters/getAll";
-import { Wrapper, PagWrapper } from "./style";
+import { PagWrapper } from "./style";
+import CardGrid from "../../layouts/CardsGrid";
 
 const Characters: FunctionComponent = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -30,12 +31,12 @@ const Characters: FunctionComponent = () => {
 
   return (
     <>
-      <Wrapper>
+      <CardGrid>
         {data &&
           data.characters.results.map((character: Character) => (
-            <CharacterCard key={character.id} character={character} />
+            <ItemCard key={character.id} item={character} />
           ))}
-      </Wrapper>
+      </CardGrid>
       <PagWrapper>
         {data && (
           <Pagination

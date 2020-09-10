@@ -9,6 +9,7 @@ export interface Character {
   location: Location;
   episode?: Episode[];
   image: string;
+  entity: 'character';
 }
 
 export interface Episode {
@@ -18,6 +19,8 @@ export interface Episode {
   episode: string;
   characters?: Character[];
   created?: string;
+  image?: string;
+  entity: 'episode';
 }
 
 export interface Location {
@@ -27,4 +30,6 @@ export interface Location {
   dimension: string;
   residents?: Character[];
   created?: string;
+  image?: string;
+  entity: 'location';
 }

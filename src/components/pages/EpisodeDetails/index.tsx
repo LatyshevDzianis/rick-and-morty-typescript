@@ -3,7 +3,7 @@ import { useQuery } from "@apollo/client";
 import { useParams } from "react-router";
 
 import { Character } from "../../../types";
-import CharacterCard from "../../blocks/CharacterCard";
+import ItemCard from "../../blocks/ItemCard";
 import { EPISODE } from "../../../graphql/queries/episodes/getItem";
 import { Wrapper, CharactersTitle, CharacterCardsWrapper } from "./style";
 import {
@@ -32,7 +32,7 @@ const EpisodeDetails = () => {
             <p>Characters of episode</p>
             <CharacterCardsWrapper>
               {data.episode.characters?.map((character: Character) => (
-                <CharacterCard key={character.id} character={character} />
+                <ItemCard key={character.id} item={character} />
               ))}
             </CharacterCardsWrapper>
           </CharactersTitle>
