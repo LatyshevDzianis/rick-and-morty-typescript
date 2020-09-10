@@ -2,19 +2,15 @@ import React from "react";
 import { useQuery } from "@apollo/client";
 import { useParams, Link } from "react-router-dom";
 
-import { Character, Episode } from "../../../types";
+import { Episode } from "../../../types";
 import { LOCATIONS_URL, EPISODES_URL } from "../../../constants/routes";
-import { CHARACTER } from "../../../graphql/queries";
+import { CHARACTER } from "../../../graphql/queries/characters/getItem";
 import Loader from "../../blocks/Loader";
 import { CharacterWrapper, CharacterImage, CharacterInfo } from "./style";
-
-interface CharacterVars {
-  id: number;
-}
-
-interface CharacterData {
-  character: Character;
-}
+import {
+  CharacterVars,
+  CharacterData,
+} from "../../../graphql/queries/characters/getItem";
 
 const CharacterDetails = () => {
   const { id } = useParams();
@@ -22,6 +18,9 @@ const CharacterDetails = () => {
     CHARACTER,
     { variables: { id: id } }
   );
+
+  const generateLocationsUrl = (id: number) => `${LOCATIONS_URL}/${id}`;
+  const generateEpisodesUrl = (id: number) => `${EPISODES_URL}/${id}`;
 
   if (loading) return <Loader />;
   if (error) return <p>Error (</p>;
@@ -41,13 +40,13 @@ const CharacterDetails = () => {
             <p>Gender: {data.character.gender}</p>
             <p>
               Origin:{" "}
-              <Link to={`${LOCATIONS_URL}/${data.character.origin.id}`}>
+              <Link to={generateLocationsUrl(data.character.origin.id)}>
                 {data.character.origin.name}
               </Link>
             </p>
             <p>
               Last location:{" "}
-              <Link to={`${LOCATIONS_URL}/${data.character.location.id}`}>
+              <Link to={generateLocationsUrl(data.character.location.id)}>
                 {data.character.location.name}
               </Link>
             </p>
@@ -55,7 +54,7 @@ const CharacterDetails = () => {
               Episodes:{" "}
               {data.character.episode?.map(
                 (episode: Episode, index: number) => (
-                  <Link key={episode.id} to={`${EPISODES_URL}/${episode.id}`}>
+                  <Link key={episode.id} to={generateEpisodesUrl(episode.id)}>
                     {episode.name}
                     {", "}
                   </Link>

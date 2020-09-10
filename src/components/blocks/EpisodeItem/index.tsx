@@ -12,8 +12,10 @@ interface EpisodeItemProps {
 const EpisodeItem = (props: EpisodeItemProps) => {
   const episode = props.episode;
 
+  const generateEpisodesUrl = (id: number) => `${EPISODES_URL}/${id}`;
+
   return (
-    <Link to={`${EPISODES_URL}/${episode.id}`}>
+    <Link to={generateEpisodesUrl(episode.id)}>
       <ItemWrapper>
         <Item>{episode.name}</Item>
         <Item className="episode">{episode.episode}</Item>

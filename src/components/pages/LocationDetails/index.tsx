@@ -2,19 +2,15 @@ import React from "react";
 import { useQuery } from "@apollo/client";
 import { useParams } from "react-router";
 
-import { Location, Character } from "../../../types";
+import { Character } from "../../../types";
 import CharacterCard from "../../blocks/CharacterCard";
-import { LOCATION } from "../../../graphql/queries";
+import { LOCATION } from "../../../graphql/queries/locations/getItem";
 import Loader from "../../blocks/Loader";
 import { Wrapper, CharacterCardsWrapper, ResidentsTitle } from "./style";
-
-interface LocationVars {
-  id: number;
-}
-
-interface LocationData {
-  location: Location;
-}
+import {
+  LocationData,
+  LocationVars,
+} from "../../../graphql/queries/locations/getItem";
 
 const LocationDetails = () => {
   const { id } = useParams();

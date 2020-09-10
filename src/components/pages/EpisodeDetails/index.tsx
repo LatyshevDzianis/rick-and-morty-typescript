@@ -2,18 +2,15 @@ import React from "react";
 import { useQuery } from "@apollo/client";
 import { useParams } from "react-router";
 
-import { Episode, Character } from "../../../types";
+import { Character } from "../../../types";
 import CharacterCard from "../../blocks/CharacterCard";
-import { EPISODE } from "../../../graphql/queries";
+import { EPISODE } from "../../../graphql/queries/episodes/getItem";
 import { Wrapper, CharactersTitle, CharacterCardsWrapper } from "./style";
-
-interface EpisodeVars {
-  id: number;
-}
-
-interface EpisodeData {
-  episode: Episode;
-}
+import {
+  EpisodeData,
+  EpisodeVars,
+} from "../../../graphql/queries/episodes/getItem";
+import Loader from "../../blocks/Loader";
 
 const EpisodeDetails = () => {
   const { id } = useParams();
@@ -21,7 +18,7 @@ const EpisodeDetails = () => {
     variables: { id: id },
   });
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <Loader />;
   if (error) return <p>Error (</p>;
 
   return (

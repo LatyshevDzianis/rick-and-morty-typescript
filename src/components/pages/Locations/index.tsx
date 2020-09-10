@@ -4,24 +4,13 @@ import { useQuery } from "@apollo/client";
 import LocationItem from "../../blocks/LocationItem";
 import { Location } from "../../../types";
 import Pagination from "../../blocks/Pagination";
-import { LOCATIONS } from "../../../graphql/queries";
+import { LOCATIONS } from "../../../graphql/queries/locations/getAll";
 import Loader from "../../blocks/Loader";
 import { Wrapper, PagWrapper } from "./style";
-
-interface LocationsVars {
-  page: number;
-}
-
-interface LocationsData {
-  locations: {
-    info: {
-      pages: number;
-      next: number;
-      prev: number;
-    };
-    results: Location[];
-  };
-}
+import {
+  LocationsData,
+  LocationsVars,
+} from "../../../graphql/queries/locations/getAll";
 
 const Episodes = () => {
   const [currentPage, setCurrentPage] = useState(1);

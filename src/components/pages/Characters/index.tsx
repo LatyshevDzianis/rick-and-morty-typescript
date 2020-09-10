@@ -4,30 +4,22 @@ import { useQuery } from "@apollo/client";
 import CharacterCard from "../../blocks/CharacterCard";
 import { Character } from "../../../types";
 import Pagination from "../../blocks/Pagination";
-import { CHARACTERS } from "../../../graphql/queries";
+import { CHARACTERS } from "../../../graphql/queries/characters/getAll";
 import Loader from "../../blocks/Loader";
+import {
+  CharactersData,
+  CharactersVars,
+} from "../../../graphql/queries/characters/getAll";
 import { Wrapper, PagWrapper } from "./style";
-
-interface CharactersData {
-  characters: {
-    info: {
-      pages: number;
-      next: number;
-      prev: number;
-    };
-    results: Character[];
-  };
-}
-
-interface CharactersVars {
-  page: number;
-}
 
 const Characters: FunctionComponent = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const { loading, error, data } = useQuery<CharactersData>(CHARACTERS, {
-    variables: { page: currentPage },
-  });
+  const { loading, error, data } = useQuery<CharactersData, CharactersVars>(
+    CHARACTERS,
+    {
+      variables: { page: currentPage },
+    }
+  );
 
   const changeCurrPage = (pageNumber: number) => {
     setCurrentPage(pageNumber);

@@ -9,8 +9,10 @@ interface CharacterCardProps {
 }
 
 const CharacterCard = (props: CharacterCardProps) => {
+  const generateCharactersUrl = (id: number) => `${CHARACTERS_URL}/${id}`;
+
   return (
-    <CharacterName to={`${CHARACTERS_URL}/${props.character.id}`}>
+    <CharacterName to={generateCharactersUrl(props.character.id)}>
       <CharacterWrapper>
         <img
           width="100px"

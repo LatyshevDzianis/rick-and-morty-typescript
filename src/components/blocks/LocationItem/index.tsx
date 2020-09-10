@@ -12,8 +12,10 @@ interface LocationItemProps {
 const LocationItem = (props: LocationItemProps) => {
   const location = props.location;
 
+  const generageLocationsUrl = (id: number) => `${LOCATIONS_URL}/${id}`;
+
   return (
-    <Link to={`${LOCATIONS_URL}/${location.id}`}>
+    <Link to={generageLocationsUrl(location.id)}>
       <ItemWrapper>
         <Item>{location.name}</Item>
         <Item>{location.type}</Item>
