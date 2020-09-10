@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import styled from "styled-components";
 import { useQuery } from "@apollo/client";
 
 import LocationItem from "../../blocks/LocationItem";
 import { Location } from "../../../types";
 import Pagination from "../../blocks/Pagination";
-import { LOCATIONS } from "../../../queries";
+import { LOCATIONS } from "../../../graphql/queries";
 import Loader from "../../blocks/Loader";
+import { Wrapper, PagWrapper } from "./style";
 
 interface LocationsVars {
   page: number;
@@ -22,17 +22,6 @@ interface LocationsData {
     results: Location[];
   };
 }
-
-const Wrapper = styled.div`
-  margin-top: 2em;
-`;
-
-const PagWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  margin-top: 2em;
-  margin-bottom: 2em;
-`;
 
 const Episodes = () => {
   const [currentPage, setCurrentPage] = useState(1);

@@ -1,5 +1,6 @@
-import React from "react";
-import styled from "styled-components";
+import React, { useCallback } from "react";
+
+import { Wrapper, PageItem } from "./style";
 
 interface PaginationProps {
   info: { pages: number; next: number; prev: number };
@@ -7,47 +8,27 @@ interface PaginationProps {
   currentPage: number;
 }
 
-const Wrapper = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-`;
-
-const PageItem = styled.span`
-  text-decoration: none;
-  color: black;
-  float: left;
-  padding: 8px 16px;
-
-  &.active {
-    background: #ff0000;
-    color: #fff;
-  }
-
-  &:hover {
-    background: #ff0000;
-    color: #fff;
-    cursor: pointer;
-  }
-`;
-
 const Pagination = (props: PaginationProps) => {
-  const pagesArr = Array(props.info.pages);
-  for (let i = 0; i < pagesArr.length; i++) {
-    pagesArr[i] = i + 1;
-  }
+  const handleClick = useCallback(
+    (index: number) => () => {
+      props.changeCurrPage(index + 1);
+    },
+    [props]
+  );
 
   return (
     <Wrapper>
-      {pagesArr.map((page: number) => (
-        <PageItem
-          key={page}
-          className={page === props.currentPage ? "active" : ""}
-          onClick={() => props.changeCurrPage(page)}
-        >
-          {page}
-        </PageItem>
-      ))}
+      {Array(props.info.pages)
+        .fill(undefined)
+        .map((_, index: number) => (
+          <PageItem
+            key={index + 1}
+            active={index + 1 === props.currentPage}
+            onClick={handleClick(index)}
+          >
+            {index + 1}
+          </PageItem>
+        ))}
     </Wrapper>
   );
 };

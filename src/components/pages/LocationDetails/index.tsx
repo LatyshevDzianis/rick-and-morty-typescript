@@ -1,12 +1,12 @@
 import React from "react";
 import { useQuery } from "@apollo/client";
 import { useParams } from "react-router";
-import styled from "styled-components";
 
 import { Location, Character } from "../../../types";
 import CharacterCard from "../../blocks/CharacterCard";
-import { LOCATION } from "../../../queries";
+import { LOCATION } from "../../../graphql/queries";
 import Loader from "../../blocks/Loader";
+import { Wrapper, CharacterCardsWrapper, ResidentsTitle } from "./style";
 
 interface LocationVars {
   id: number;
@@ -16,26 +16,12 @@ interface LocationData {
   location: Location;
 }
 
-const Wrapper = styled.div`
-  margin-top: 2em;
-`;
-
-const ResidentsTitle = styled.div`
-  text-align: center;
-`;
-
-const CharacterCardsWrapper = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  grid-gap: 1em;
-`;
-
 const LocationDetails = () => {
   const { id } = useParams();
   const { loading, error, data } = useQuery<LocationData, LocationVars>(
     LOCATION,
     {
-      variables: { id: id },
+      variables: { id },
     }
   );
 

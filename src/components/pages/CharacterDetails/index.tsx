@@ -1,12 +1,12 @@
 import React from "react";
 import { useQuery } from "@apollo/client";
 import { useParams, Link } from "react-router-dom";
-import styled from "styled-components";
 
 import { Character, Episode } from "../../../types";
 import { LOCATIONS_URL, EPISODES_URL } from "../../../constants/routes";
-import { CHARACTER } from "../../../queries";
+import { CHARACTER } from "../../../graphql/queries";
 import Loader from "../../blocks/Loader";
+import { CharacterWrapper, CharacterImage, CharacterInfo } from "./style";
 
 interface CharacterVars {
   id: number;
@@ -15,26 +15,6 @@ interface CharacterVars {
 interface CharacterData {
   character: Character;
 }
-
-const CharacterWrapper = styled.div`
-  margin-top: 2em;
-  display: grid;
-  grid-template-columns: 1fr 4fr;
-  gap: 2em;
-
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr;
-  }
-`;
-
-const CharacterImage = styled.img`
-  width: 300px;
-  height: 300px;
-`;
-
-const CharacterInfo = styled.div`
-  font-size: 1em;
-`;
 
 const CharacterDetails = () => {
   const { id } = useParams();

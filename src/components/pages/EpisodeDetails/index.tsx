@@ -1,11 +1,11 @@
 import React from "react";
-import styled from "styled-components";
 import { useQuery } from "@apollo/client";
 import { useParams } from "react-router";
 
 import { Episode, Character } from "../../../types";
 import CharacterCard from "../../blocks/CharacterCard";
-import { EPISODE } from "../../../queries";
+import { EPISODE } from "../../../graphql/queries";
+import { Wrapper, CharactersTitle, CharacterCardsWrapper } from "./style";
 
 interface EpisodeVars {
   id: number;
@@ -14,20 +14,6 @@ interface EpisodeVars {
 interface EpisodeData {
   episode: Episode;
 }
-
-const Wrapper = styled.div`
-  margin-top: 2em;
-`;
-
-const CharacterCardsWrapper = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  grid-gap: 1em;
-`;
-
-const CharactersTitle = styled.div`
-  text-align: center;
-`;
 
 const EpisodeDetails = () => {
   const { id } = useParams();

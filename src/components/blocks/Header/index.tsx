@@ -1,47 +1,11 @@
 import React from "react";
-import styled from "styled-components";
-import {NavLink} from 'react-router-dom';
 
-const HeaderBox = styled.div`
-  width: 100%;
-  background: #130f40;
-  color: #95afc0;
-  font-size: 1.3em;
-`;
-
-const HeaderContainer = styled.div`
-  width: 75%;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  @media(max-width: 768px) {
-    flex-direction: column;
-  }
-`;
-
-const Nav = styled.div`
-  display: flex;
-
-  @media(max-width: 768px) {
-    margin-bottom: 1em;
-  }
-`;
-
-const NavItem = styled(NavLink)`
-  margin-right: 1em;
-  color: #95afc0;
-  text-decoration: none;
-  transition: hover linear .3s;
-  
-  &.active {
-    color: red;
-  }
-  &:hover {
-    color: red;
-  }
-`;
+import {
+  CHARACTERS_URL,
+  LOCATIONS_URL,
+  EPISODES_URL,
+} from "../../../constants/routes";
+import { HeaderBox, HeaderContainer, Nav, NavItem } from "./style";
 
 const Header = () => {
   return (
@@ -49,9 +13,9 @@ const Header = () => {
       <HeaderContainer>
         <p>Rick And Morty</p>
         <Nav>
-          <NavItem to="/characters">Characters</NavItem>
-          <NavItem to="/locations">Locations</NavItem>
-          <NavItem to="/episodes">Episodes</NavItem>
+          <NavItem to={CHARACTERS_URL}>Characters</NavItem>
+          <NavItem to={LOCATIONS_URL}>Locations</NavItem>
+          <NavItem to={EPISODES_URL}>Episodes</NavItem>
         </Nav>
       </HeaderContainer>
     </HeaderBox>

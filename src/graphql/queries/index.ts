@@ -1,5 +1,8 @@
 import { gql } from "@apollo/client";
 
+// TODO fix queries structure
+// TODO types for query will be in file with query
+
 export const EPISODES = gql`
   query GetAllEpisodes($page: Int) {
     episodes(page: $page) {
@@ -45,12 +48,12 @@ export const CHARACTERS = gql`
       results {
         id
         name
+        image
         status
         species
         location {
           name
         }
-        image
       }
     }
   }
