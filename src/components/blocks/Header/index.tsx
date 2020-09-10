@@ -4,10 +4,9 @@ import {NavLink} from 'react-router-dom';
 
 const HeaderBox = styled.div`
   width: 100%;
-  height: 70px;
   background: #130f40;
   color: #95afc0;
-  font-size: 1.5em;
+  font-size: 1.3em;
 `;
 
 const HeaderContainer = styled.div`
@@ -16,10 +15,18 @@ const HeaderContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  @media(max-width: 768px) {
+    flex-direction: column;
+  }
 `;
 
 const Nav = styled.div`
   display: flex;
+
+  @media(max-width: 768px) {
+    margin-bottom: 1em;
+  }
 `;
 
 const NavItem = styled(NavLink)`

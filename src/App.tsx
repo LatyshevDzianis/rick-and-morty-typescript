@@ -1,5 +1,10 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
 import styled from "styled-components";
 
 import Header from "./components/blocks/Header";
@@ -16,6 +21,7 @@ import {
   EPISODE_DETAILS_URL,
   LOCATIONS_URL,
   LOCATION_DETAILS_URL,
+  MAIN_ROUTE,
 } from "./constants/routes";
 
 const Container = styled.div`
@@ -29,6 +35,9 @@ function App() {
       <Header />
       <Container>
         <Switch>
+          <Route exact path={MAIN_ROUTE}>
+            <Redirect to={CHARACTERS_URL} />
+          </Route>
           <Route path={CHARACTERS_URL} exact component={Characters} />
           <Route path={CHARACTER_DETAILS_URL} component={CharacterDetails} />
           <Route path={EPISODES_URL} exact component={Episodes} />

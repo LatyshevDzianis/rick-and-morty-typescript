@@ -1,10 +1,12 @@
 import React from "react";
-import { useQuery, gql } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { useParams, Link } from "react-router-dom";
 import styled from "styled-components";
 
 import { Character, Episode } from "../../../types";
 import { LOCATIONS_URL, EPISODES_URL } from "../../../constants/routes";
+import { CHARACTER } from "../../../queries";
+import Loader from "../../blocks/Loader";
 
 interface CharacterVars {
   id: number;
@@ -16,44 +18,22 @@ interface CharacterData {
 
 const CharacterWrapper = styled.div`
   margin-top: 2em;
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr 4fr;
   gap: 2em;
-  flex-wrap: wrap;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 const CharacterImage = styled.img`
-  flex: 1;
-`
+  width: 300px;
+  height: 300px;
+`;
 
 const CharacterInfo = styled.div`
   font-size: 1em;
-  flex: 3;
-`;
-
-const CHARACTER = gql`
-  query getCharacter($id: ID!) {
-    character(id: $id) {
-      id
-      name
-      status
-      gender
-      image
-      species
-      episode {
-        id
-        name
-      }
-      origin {
-        id
-        name
-      }
-      location {
-        id
-        name
-      }
-    }
-  }
 `;
 
 const CharacterDetails = () => {
@@ -63,14 +43,17 @@ const CharacterDetails = () => {
     { variables: { id: id } }
   );
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <Loader />;
   if (error) return <p>Error (</p>;
 
   return (
     <>
       {data && (
         <CharacterWrapper>
-          <CharacterImage src={data.character.image} alt={data.character.name} />
+          <CharacterImage
+            src={data.character.image}
+            alt={data.character.name}
+          />
           <CharacterInfo>
             <p>Name: {data.character.name}</p>
             <p>Status: {data.character.status}</p>
@@ -90,12 +73,14 @@ const CharacterDetails = () => {
             </p>
             <p>
               Episodes:{" "}
-              {data.character.episode?.map((episode: Episode, index: number) => (
-                <Link key={episode.id} to={`${EPISODES_URL}/${episode.id}`}>
-                  {episode.name}
-                  {', '}
-                </Link>
-              ))}
+              {data.character.episode?.map(
+                (episode: Episode, index: number) => (
+                  <Link key={episode.id} to={`${EPISODES_URL}/${episode.id}`}>
+                    {episode.name}
+                    {", "}
+                  </Link>
+                )
+              )}
             </p>
           </CharacterInfo>
         </CharacterWrapper>

@@ -2,11 +2,11 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-import { Episode } from "../../../types";
-import { EPISODES_URL } from "../../../constants/routes";
+import { Location } from "../../../types";
+import { LOCATIONS_URL } from "../../../constants/routes";
 
-interface EpisodeItemProps {
-  episode: Episode;
+interface LocationItemProps {
+  location: Location;
 }
 
 const Item = styled.div`
@@ -17,7 +17,6 @@ const ItemWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   border: 1px solid gray;
-  flex-wrap: wrap;
   padding: 5px 10px;
 
   @media(max-width: 768px) {
@@ -28,18 +27,18 @@ const ItemWrapper = styled.div`
 
 const CustomLink = styled(Link)``;
 
-const EpisodeItem = (props: EpisodeItemProps) => {
-  const episode = props.episode;
+const LocationItem = (props: LocationItemProps) => {
+  const location = props.location;
 
   return (
-    <CustomLink to={`${EPISODES_URL}/${episode.id}`}>
+    <CustomLink to={`${LOCATIONS_URL}/${location.id}`}>
       <ItemWrapper>
-        <Item>{episode.name}</Item>
-        <Item className="episode">{episode.episode}</Item>
-        <Item>{episode.air_date}</Item>
+        <Item>{location.name}</Item>
+        <Item>{location.type}</Item>
+        <Item>{location.dimension}</Item>
       </ItemWrapper>
     </CustomLink>
   );
 };
 
-export default EpisodeItem;
+export default LocationItem;

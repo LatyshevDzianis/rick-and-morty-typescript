@@ -1,13 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { useQuery, gql } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 
-import EpisodeItem from '../../blocks/EpisodeItem';
-import {Episode} from '../../../types';
-
-const Wrapper = styled.div`
-  margin-top: 2em;
-`;
+import EpisodeItem from "../../blocks/EpisodeItem";
+import { Episode } from "../../../types";
+import Pagination from "../../blocks/Pagination";
+import { EPISODES } from "../../../queries";
+import Loader from "../../blocks/Loader";
 
 interface EpisodesData {
   episodes: {
@@ -20,36 +19,55 @@ interface EpisodesData {
   };
 }
 
-const EPISODES = gql`
-  query GetAllEpisodes {
-    episodes(page: 1) {
-      info {
-        pages
-        next
-        prev
-      }
-      results {
-        id
-        name
-        air_date
-        episode
-      }
-    }
-  }
+interface EpisodesVars {
+  page: number;
+}
+
+const Wrapper = styled.div`
+  margin-top: 2em;
+`;
+
+const PagWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 2em;
+  margin-bottom: 2em;
 `;
 
 const Episodes = () => {
-  const { loading, error, data } = useQuery<EpisodesData>(EPISODES);
+  const [currentPage, setCurrentPage] = useState(1);
+  const { loading, error, data } = useQuery<EpisodesData, EpisodesVars>(
+    EPISODES,
+    {
+      variables: { page: currentPage },
+    }
+  );
 
-  if (loading) return <p>Loading...</p>;
+  const changeCurrPage = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+  };
+
+  if (loading) return <Loader />;
   if (error) return <p>Error(</p>;
 
   return (
-    <Wrapper>
-      {data && data.episodes.results.map((episode: Episode) => (
-        <EpisodeItem key={episode.id} episode={episode} />
-      ))}
-    </Wrapper>
+    <>
+      <Wrapper>
+        {data &&
+          data.episodes.results.map((episode: Episode) => (
+            <EpisodeItem key={episode.id} episode={episode} />
+          ))}
+      </Wrapper>
+      <PagWrapper>
+        {data && (
+          <Pagination
+            info={data?.episodes.info}
+            currentPage={currentPage}
+            changeCurrPage={changeCurrPage}
+          />
+        )}
+      </PagWrapper>
+    </>
   );
 };
 

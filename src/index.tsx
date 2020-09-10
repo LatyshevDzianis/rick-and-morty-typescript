@@ -3,9 +3,9 @@ import ReactDOM from "react-dom";
 import { ApolloClient, InMemoryCache } from "@apollo/client";
 import { ApolloProvider } from "@apollo/client";
 
-import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
+import GlobalStyle from './globalStyles';
 
 const client = new ApolloClient({
   uri: "https://rickandmortyapi.com/graphql/",
@@ -14,6 +14,7 @@ const client = new ApolloClient({
 
 ReactDOM.render(
   <ApolloProvider client={client}>
+    <GlobalStyle />
     <App />
   </ApolloProvider>,
   document.getElementById("root")

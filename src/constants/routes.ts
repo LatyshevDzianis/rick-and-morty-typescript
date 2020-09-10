@@ -1,3 +1,5 @@
+export const MAIN_ROUTE = '/';
+
 export const CHARACTERS_URL = '/characters';
 export const CHARACTER_DETAILS_URL = '/characters/:id';
 
