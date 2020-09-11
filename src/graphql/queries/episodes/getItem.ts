@@ -1,5 +1,7 @@
 import { gql } from "@apollo/client";
+
 import { Episode } from "../../../types";
+import { EPISODE_FRAGMENT } from "../../fragments";
 
 export interface EpisodeVars {
   id: number;
@@ -12,10 +14,7 @@ export interface EpisodeData {
 export const EPISODE = gql`
   query getEpisode($id: ID!) {
     episode(id: $id) {
-      id
-      name
-      air_date
-      episode
+      ...EpisodeFragment
       characters {
         id
         name
@@ -23,4 +22,5 @@ export const EPISODE = gql`
       }
     }
   }
+  ${EPISODE_FRAGMENT}
 `;

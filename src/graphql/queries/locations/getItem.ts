@@ -1,6 +1,7 @@
 import { gql } from "@apollo/client";
 
 import { Location } from "../../../types";
+import { LOCATION_FRAGMENT } from "../../fragments";
 
 export interface LocationVars {
   id: number;
@@ -13,10 +14,7 @@ export interface LocationData {
 export const LOCATION = gql`
   query getLocation($id: ID!) {
     location(id: $id) {
-      id
-      name
-      type
-      dimension
+      ...LocationFragment
       residents {
         id
         name
@@ -24,4 +22,5 @@ export const LOCATION = gql`
       }
     }
   }
+  ${LOCATION_FRAGMENT}
 `;

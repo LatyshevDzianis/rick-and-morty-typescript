@@ -8,11 +8,11 @@ interface ItemCardProps {
   href: string;
 }
 
-const ItemCard = (props: ItemCardProps) => (
-  <ItemName to={props.href}>
+const ItemCard = ({ href, item: { image, name } }: ItemCardProps) => (
+  <ItemName to={href}>
     <ItemWrapper>
-      <img width="100px" src={props.item.image} alt={props.item.name} />
-      <span>{props.item.name}</span>
+      <img width="100px" src={image} alt={name} />
+      <span>{name}</span>
     </ItemWrapper>
   </ItemName>
 );

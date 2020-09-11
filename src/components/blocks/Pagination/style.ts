@@ -15,8 +15,8 @@ const PageItem = styled.span`
   color: black;
   float: left;
   padding: 8px 16px;
-  background: ${(props: StyledProps) => (props.active ? "#ff0000" : "inherit")};
-  color: ${(props: StyledProps) => (props.active ? "#fff" : "inherit")};
+  background: ${({ active }: StyledProps) => (active ? "#ff0000" : "inherit")};
+  color: ${({ active }: StyledProps) => (active ? "#fff" : "inherit")};
 
   &:hover {
     background: #ff0000;

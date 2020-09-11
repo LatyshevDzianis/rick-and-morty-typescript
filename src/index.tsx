@@ -5,7 +5,7 @@ import { ApolloProvider } from "@apollo/client";
 
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
-import GlobalStyle from './globalStyles';
+import GlobalStyle from "./globalStyles";
 
 const client = new ApolloClient({
   uri: "https://rickandmortyapi.com/graphql/",

@@ -4,14 +4,14 @@ import { useParams } from "react-router";
 
 import { Character } from "../../../types";
 import ItemCard from "../../blocks/ItemCard";
-import { LOCATION } from "../../../graphql/queries/locations/getItem";
 import Loader from "../../blocks/Loader";
 import { Wrapper, ResidentsTitle } from "./style";
 import {
+  LOCATION,
   LocationData,
   LocationVars,
 } from "../../../graphql/queries/locations/getItem";
-import { CHARACTERS_URL } from "../../../constants/routes";
+import { generateCharactersUrl } from "../../../constants/routes";
 import CardsGrid from "../../layouts/CardsGrid";
 
 const LocationDetails = () => {
@@ -23,10 +23,8 @@ const LocationDetails = () => {
     }
   );
 
-  const generateCharactersUrl = (id: number) => `${CHARACTERS_URL}/${id}`;
-
   if (loading) return <Loader />;
-  if (error) return <p>Error (</p>;
+  if (error) return <p>Error: {error.message}</p>;
 
   return (
     <>

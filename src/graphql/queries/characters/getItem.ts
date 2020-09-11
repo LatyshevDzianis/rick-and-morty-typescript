@@ -1,6 +1,7 @@
 import { gql } from "@apollo/client";
 
 import { Character } from "../../../types";
+import {CHARACTER_FRAGMENT} from '../../fragments';
 
 export interface CharacterVars {
   id: number;
@@ -13,16 +14,8 @@ export interface CharacterData {
 export const CHARACTER = gql`
   query getCharacter($id: ID!) {
     character(id: $id) {
-      id
-      name
-      image
-      status
-      species
+      ...CharacterFragment
       gender
-      location {
-        id
-        name
-      }
       episode {
         id
         name
@@ -33,4 +26,5 @@ export const CHARACTER = gql`
       }
     }
   }
+  ${CHARACTER_FRAGMENT}
 `;

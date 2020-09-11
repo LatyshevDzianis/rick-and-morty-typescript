@@ -4,15 +4,15 @@ import { useParams } from "react-router";
 
 import { Character } from "../../../types";
 import ItemCard from "../../blocks/ItemCard";
-import { EPISODE } from "../../../graphql/queries/episodes/getItem";
 import { Wrapper, CharactersTitle } from "./style";
 import {
+  EPISODE,
   EpisodeData,
   EpisodeVars,
 } from "../../../graphql/queries/episodes/getItem";
 import Loader from "../../blocks/Loader";
-import { CHARACTERS_URL } from "../../../constants/routes";
-import CardsGrid from '../../layouts/CardsGrid';
+import { generateCharactersUrl } from "../../../constants/routes";
+import CardsGrid from "../../layouts/CardsGrid";
 
 const EpisodeDetails = () => {
   const { id } = useParams();
@@ -20,10 +20,8 @@ const EpisodeDetails = () => {
     variables: { id: id },
   });
 
-  const generateCharactersUrl = (id: number) => `${CHARACTERS_URL}/${id}`;
-
   if (loading) return <Loader />;
-  if (error) return <p>Error (</p>;
+  if (error) return <p>Error: {error.message}</p>;
 
   return (
     <>

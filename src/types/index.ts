@@ -30,3 +30,10 @@ export interface Location {
   created?: string;
   image?: string;
 }
+
+export interface Info {
+  count?: number;
+  pages: number;
+  next: number;
+  prev: number;
+}

@@ -1,6 +1,7 @@
 import { gql } from "@apollo/client";
 
-import { Location } from "../../../types";
+import { Location, Info } from "../../../types";
+import { LOCATION_FRAGMENT, INFO_FRAGMENT } from "../../fragments";
 
 export interface LocationsVars {
   page: number;
@@ -8,11 +9,7 @@ export interface LocationsVars {
 
 export interface LocationsData {
   locations: {
-    info: {
-      pages: number;
-      next: number;
-      prev: number;
-    };
+    info: Info;
     results: Location[];
   };
 }
@@ -21,16 +18,13 @@ export const LOCATIONS = gql`
   query GetAllLocations($page: Int) {
     locations(page: $page) {
       info {
-        pages
-        next
-        prev
+        ...InfoFragment
       }
       results {
-        id
-        name
-        type
-        dimension
+        ...LocationFragment
       }
     }
   }
+  ${LOCATION_FRAGMENT}
+  ${INFO_FRAGMENT}
 `;

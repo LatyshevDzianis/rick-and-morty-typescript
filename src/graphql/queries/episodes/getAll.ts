@@ -1,14 +1,11 @@
-import {gql} from '@apollo/client';
+import { gql } from "@apollo/client";
 
-import { Episode } from "../../../types";
+import { Episode, Info } from "../../../types";
+import { EPISODE_FRAGMENT, INFO_FRAGMENT } from "../../fragments";
 
 export interface EpisodesData {
   episodes: {
-    info: {
-      pages: number;
-      next: number;
-      prev: number;
-    };
+    info: Info;
     results: Episode[];
   };
 }
@@ -21,16 +18,13 @@ export const EPISODES = gql`
   query GetAllEpisodes($page: Int) {
     episodes(page: $page) {
       info {
-        pages
-        next
-        prev
+        ...InfoFragment
       }
       results {
-        id
-        name
-        air_date
-        episode
+        ...EpisodeFragment
       }
     }
   }
+  ${EPISODE_FRAGMENT}
+  ${INFO_FRAGMENT}
 `;

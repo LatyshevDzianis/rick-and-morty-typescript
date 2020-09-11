@@ -3,11 +3,14 @@ import { useQuery } from "@apollo/client";
 import { useParams, Link } from "react-router-dom";
 
 import { Episode } from "../../../types";
-import { LOCATIONS_URL, EPISODES_URL } from "../../../constants/routes";
-import { CHARACTER } from "../../../graphql/queries/characters/getItem";
+import {
+  generateLocationsUrl,
+  generateEpisodesUrl,
+} from "../../../constants/routes";
 import Loader from "../../blocks/Loader";
 import { CharacterImage, CharacterInfo } from "./style";
 import {
+  CHARACTER,
   CharacterVars,
   CharacterData,
 } from "../../../graphql/queries/characters/getItem";
@@ -20,11 +23,8 @@ const CharacterDetails = () => {
     { variables: { id: id } }
   );
 
-  const generateLocationsUrl = (id: number) => `${LOCATIONS_URL}/${id}`;
-  const generateEpisodesUrl = (id: number) => `${EPISODES_URL}/${id}`;
-
   if (loading) return <Loader />;
-  if (error) return <p>Error (</p>;
+  if (error) return <p>Error: ${error.message}</p>;
 
   return (
     <>
@@ -53,14 +53,12 @@ const CharacterDetails = () => {
             </p>
             <p>
               Episodes:{" "}
-              {data.character.episode?.map(
-                (episode: Episode, index: number) => (
-                  <Link key={episode.id} to={generateEpisodesUrl(episode.id)}>
-                    {episode.name}
-                    {", "}
-                  </Link>
-                )
-              )}
+              {data.character.episode?.map((episode: Episode) => (
+                <Link key={episode.id} to={generateEpisodesUrl(episode.id)}>
+                  {episode.name}
+                  {", "}
+                </Link>
+              ))}
             </p>
           </CharacterInfo>
         </CharacterLayout>

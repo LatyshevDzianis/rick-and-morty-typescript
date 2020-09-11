@@ -1,14 +1,11 @@
 import { gql } from "@apollo/client";
 
-import { Character } from "../../../types";
+import { Character, Info } from "../../../types";
+import { CHARACTER_FRAGMENT, INFO_FRAGMENT } from "../../fragments";
 
 export interface CharactersData {
   characters: {
-    info: {
-      pages: number;
-      next: number;
-      prev: number;
-    };
+    info: Info;
     results: Character[];
   };
 }
@@ -21,21 +18,13 @@ export const CHARACTERS = gql`
   query GetAllCharacters($page: Int) {
     characters(page: $page) {
       info {
-        pages
-        next
-        prev
+        ...InfoFragment
       }
       results {
-        id
-        name
-        image
-        status
-        species
-        location {
-          id
-          name
-        }
+        ...CharacterFragment
       }
     }
   }
+  ${CHARACTER_FRAGMENT}
+  ${INFO_FRAGMENT}
 `;

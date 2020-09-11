@@ -1,18 +1,18 @@
-import React, { FunctionComponent, useState } from "react";
+import React, { FunctionComponent, useState, useCallback } from "react";
 import { useQuery } from "@apollo/client";
 
 import ItemCard from "../../blocks/ItemCard";
 import { Character } from "../../../types";
 import Pagination from "../../blocks/Pagination";
-import { CHARACTERS } from "../../../graphql/queries/characters/getAll";
 import Loader from "../../blocks/Loader";
 import {
+  CHARACTERS,
   CharactersData,
   CharactersVars,
 } from "../../../graphql/queries/characters/getAll";
 import { PagWrapper } from "./style";
 import CardGrid from "../../layouts/CardsGrid";
-import { CHARACTERS_URL } from "../../../constants/routes";
+import { generateCharactersUrl } from "../../../constants/routes";
 
 const Characters: FunctionComponent = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -23,14 +23,12 @@ const Characters: FunctionComponent = () => {
     }
   );
 
-  const generateCharactersUrl = (id: number) => `${CHARACTERS_URL}/${id}`;
-
-  const changeCurrPage = (pageNumber: number) => {
+  const changeCurrPage = useCallback((pageNumber: number) => {
     setCurrentPage(pageNumber);
-  };
+  }, []);
 
   if (loading) return <Loader />;
-  if (error) return <p>Error(</p>;
+  if (error) return <p>Error: {error.message}</p>;
 
   return (
     <>

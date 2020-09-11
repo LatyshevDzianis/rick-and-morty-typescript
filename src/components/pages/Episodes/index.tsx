@@ -1,18 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { useQuery } from "@apollo/client";
 
 import { Episode } from "../../../types";
 import Pagination from "../../blocks/Pagination";
-import { EPISODES } from "../../../graphql/queries/episodes/getAll";
 import Loader from "../../blocks/Loader";
 import { PagWrapper } from "./style";
 import {
+  EPISODES,
   EpisodesData,
   EpisodesVars,
 } from "../../../graphql/queries/episodes/getAll";
 import CardGrid from "../../layouts/CardsGrid";
 import ItemCard from "../../blocks/ItemCard";
-import { EPISODES_URL } from "../../../constants/routes";
+import { generateEpisodesUrl } from "../../../constants/routes";
+import { EPISODE_IMAGE } from "../../../constants/images";
 
 const Episodes = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -22,27 +23,28 @@ const Episodes = () => {
       variables: { page: currentPage },
     }
   );
-  
-  const generateEpisodesUrl = (id: number) => `${EPISODES_URL}/${id}`;
 
-  const changeCurrPage = (pageNumber: number) => {
+  const changeCurrPage = useCallback((pageNumber: number) => {
     setCurrentPage(pageNumber);
-  };
+  }, []);
 
   if (loading) return <Loader />;
-  if (error) return <p>Error(</p>;
+  if (error) return <p>Error: {error.message}</p>;
 
   return (
     <>
       <CardGrid>
         {data &&
-          data.episodes.results.map((episode: Episode) => {
-            const newObj: Episode = {
-              ...episode,
-              image: 'https://upload.wikimedia.org/wikipedia/en/thumb/b/b8/Rick_and_Morty_season_1.png/250px-Rick_and_Morty_season_1.png'
-            }
-            return (<ItemCard key={episode.id} item={newObj} href={generateEpisodesUrl(newObj.id)}/>);
-          })}
+          data.episodes.results.map((episode: Episode) => (
+            <ItemCard
+              key={episode.id}
+              href={generateEpisodesUrl(episode.id)}
+              item={{
+                ...episode,
+                image: EPISODE_IMAGE,
+              }}
+            />
+          ))}
       </CardGrid>
       <PagWrapper>
         {data && (
