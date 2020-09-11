@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-export const CharacterWrapper = styled.div`
+export const ItemWrapper = styled.div`
   display: flex;
   align-items: center;
   border: 1px solid gray;
@@ -14,6 +14,6 @@ export const CharacterWrapper = styled.div`
   }
 `;
 
-export const CharacterName = styled(Link)`
+export const ItemName = styled(Link)`
   text-decoration: none;
 `;

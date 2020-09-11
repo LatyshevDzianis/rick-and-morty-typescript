@@ -6,11 +6,13 @@ import { Character } from "../../../types";
 import ItemCard from "../../blocks/ItemCard";
 import { LOCATION } from "../../../graphql/queries/locations/getItem";
 import Loader from "../../blocks/Loader";
-import { Wrapper, CharacterCardsWrapper, ResidentsTitle } from "./style";
+import { Wrapper, ResidentsTitle } from "./style";
 import {
   LocationData,
   LocationVars,
 } from "../../../graphql/queries/locations/getItem";
+import { CHARACTERS_URL } from "../../../constants/routes";
+import CardsGrid from "../../layouts/CardsGrid";
 
 const LocationDetails = () => {
   const { id } = useParams();
@@ -20,6 +22,8 @@ const LocationDetails = () => {
       variables: { id },
     }
   );
+
+  const generateCharactersUrl = (id: number) => `${CHARACTERS_URL}/${id}`;
 
   if (loading) return <Loader />;
   if (error) return <p>Error (</p>;
@@ -33,11 +37,15 @@ const LocationDetails = () => {
           <p>Dimension: {data.location.dimension}</p>
           <ResidentsTitle>
             <p>Residents of location</p>
-            <CharacterCardsWrapper>
+            <CardsGrid>
               {data.location.residents?.map((character: Character) => (
-                <ItemCard key={character.id} item={character} />
+                <ItemCard
+                  key={character.id}
+                  item={character}
+                  href={generateCharactersUrl(character.id)}
+                />
               ))}
-            </CharacterCardsWrapper>
+            </CardsGrid>
           </ResidentsTitle>
         </Wrapper>
       )}

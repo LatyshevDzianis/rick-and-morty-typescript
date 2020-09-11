@@ -1,9 +1,5 @@
 import styled from "styled-components";
 
-const Wrapper = styled.div`
-  margin-top: 2em;
-`;
-
 const PagWrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -11,4 +7,4 @@ const PagWrapper = styled.div`
   margin-bottom: 2em;
 `;
 
-export { Wrapper, PagWrapper };
+export { PagWrapper };

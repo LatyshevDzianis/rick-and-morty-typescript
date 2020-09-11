@@ -6,11 +6,12 @@ import { Episode } from "../../../types";
 import { LOCATIONS_URL, EPISODES_URL } from "../../../constants/routes";
 import { CHARACTER } from "../../../graphql/queries/characters/getItem";
 import Loader from "../../blocks/Loader";
-import { CharacterWrapper, CharacterImage, CharacterInfo } from "./style";
+import { CharacterImage, CharacterInfo } from "./style";
 import {
   CharacterVars,
   CharacterData,
 } from "../../../graphql/queries/characters/getItem";
+import CharacterLayout from "../../layouts/CharacterLayout";
 
 const CharacterDetails = () => {
   const { id } = useParams();
@@ -28,7 +29,7 @@ const CharacterDetails = () => {
   return (
     <>
       {data && (
-        <CharacterWrapper>
+        <CharacterLayout>
           <CharacterImage
             src={data.character.image}
             alt={data.character.name}
@@ -62,7 +63,7 @@ const CharacterDetails = () => {
               )}
             </p>
           </CharacterInfo>
-        </CharacterWrapper>
+        </CharacterLayout>
       )}
     </>
   );

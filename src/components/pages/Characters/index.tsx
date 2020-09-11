@@ -12,6 +12,7 @@ import {
 } from "../../../graphql/queries/characters/getAll";
 import { PagWrapper } from "./style";
 import CardGrid from "../../layouts/CardsGrid";
+import { CHARACTERS_URL } from "../../../constants/routes";
 
 const Characters: FunctionComponent = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -21,6 +22,8 @@ const Characters: FunctionComponent = () => {
       variables: { page: currentPage },
     }
   );
+
+  const generateCharactersUrl = (id: number) => `${CHARACTERS_URL}/${id}`;
 
   const changeCurrPage = (pageNumber: number) => {
     setCurrentPage(pageNumber);
@@ -34,7 +37,11 @@ const Characters: FunctionComponent = () => {
       <CardGrid>
         {data &&
           data.characters.results.map((character: Character) => (
-            <ItemCard key={character.id} item={character} />
+            <ItemCard
+              key={character.id}
+              item={character}
+              href={generateCharactersUrl(character.id)}
+            />
           ))}
       </CardGrid>
       <PagWrapper>
